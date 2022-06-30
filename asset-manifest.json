@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/game-filter/static/css/main.bd5d37ef.css",
+    "main.js": "/game-filter/static/js/main.c0bb609b.js",
+    "index.html": "/game-filter/index.html",
+    "main.bd5d37ef.css.map": "/game-filter/static/css/main.bd5d37ef.css.map",
+    "main.c0bb609b.js.map": "/game-filter/static/js/main.c0bb609b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bd5d37ef.css",
+    "static/js/main.c0bb609b.js"
+  ]
+}
