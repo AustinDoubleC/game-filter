@@ -13,10 +13,10 @@ function App() {
   const date = new Date()
   const backdate = new Date(date.setDate(date.getDate() - 30));
   const now = new Date()
-  const backDay = backdate.getDate()
+  const backDay = backdate.getDate()<10?"0"+backdate.getDate():backdate.getDate()
   const backMonth = (backdate.getMonth()+1)<10?"0"+(backdate.getMonth()+1).toString():backdate.getMonth()+1
   const backYear = backdate.getFullYear()
-  const nowDay  = now.getDate()
+  const nowDay  = now.getDate()<10?"0"+now.getDate():now.getDate()<10
   const nowMonth = (now.getMonth()+1)<10?"0"+(now.getMonth()+1).toString():now.getMonth()+1
   const nowYear = now.getFullYear()
   const last = `${backYear}-${backMonth}-${backDay}`
@@ -28,6 +28,9 @@ function App() {
   }, [platform])
 
   const fetchGames = async ()=>{
+    console.log(last)
+    console.log(today)
+    console.log(platform)
     const data = await fetch(`https://api.rawg.io/api/games?key=4eea4fb32c3040f0b8f1c37422f78f4f${platform==="0"?"":`&platforms=${platform}`}&dates=${last},${today}`)
     const items = await data.json()
     setGames(items.results)
