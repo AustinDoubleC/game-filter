@@ -1,10 +1,10 @@
-function SearchBar({setPlatform}){
+function Select({setPlatform}){
     const handleSubmit=()=>{
         setPlatform(document.getElementById("selectBox").value)
     }
     
     return(
-        <div id="searchContainer">
+        <div id="selectContainer">
                 <p>Game Platform</p>
                 <select onChange={()=>handleSubmit()} id="selectBox">
                     <option value="0">All</option>
@@ -17,4 +17,4 @@ function SearchBar({setPlatform}){
     )
 }
 
-export default SearchBar
+export default Select

@@ -1,12 +1,16 @@
 import {motion} from "framer-motion"
-function Game({game}){
+function Game({game,setSelectedGame}){
+
     return(
         <motion.div 
         layout
-        className="movie">
+        className="game">
             <h2>{game.name}</h2>
-            <img src={game.background_image} alt=""/>
-            <p id="rating">Rating: {game.rating}</p>
+            <img src={game.background_image} alt="" onClick={()=>{
+                setSelectedGame(game)
+                document.getElementById("modal-container").style.display="block"
+                }}/>
+            <p id="rating">Rating: {game.rating?game.rating:"N/A"}</p>
         </motion.div>
     )
 }

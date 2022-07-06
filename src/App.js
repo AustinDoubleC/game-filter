@@ -2,52 +2,75 @@ import './App.css';
 import {useEffect, useState} from "react"
 import Game from "./Game"
 import Filter from './Filter';
-import SearchBar from './SearchBar';
+import Select from './Select';
+import Search from './Search';
 import { motion } from "framer-motion"
+import Modal from './Modal';
 
 function App() {
+  const [startDate, setStartDate] = useState("")
+  const [endDate, setEndDate] = useState("")
+  const [page, setPage] =useState(1)
+  const [prev, setPrev] = useState(false)
+  const [next, setNext] = useState(false)
   const [games,setGames] = useState([])
   const [filtered, setFiltered] = useState([])
   const [activeGenre, setActiveGenre] = useState(0)
   const [platform, setPlatform] = useState("0")
-  const date = new Date()
-  const backdate = new Date(date.setDate(date.getDate() - 30));
-  const now = new Date()
-  const backDay = backdate.getDate()<10?"0"+backdate.getDate():backdate.getDate()
-  const backMonth = (backdate.getMonth()+1)<10?"0"+(backdate.getMonth()+1).toString():backdate.getMonth()+1
-  const backYear = backdate.getFullYear()
-  const nowDay  = now.getDate()<10?"0"+now.getDate():now.getDate()<10
-  const nowMonth = (now.getMonth()+1)<10?"0"+(now.getMonth()+1).toString():now.getMonth()+1
-  const nowYear = now.getFullYear()
-  const last = `${backYear}-${backMonth}-${backDay}`
-  const today =`${nowYear}-${nowMonth}-${nowDay}`
+  const [selectedGame, setSelectedGame] = useState({
+    slug:""
+  })
+  const [gameInfo, setGameInfo] = useState({
+    publishers:[],
+    platforms:{
+      platform:{
+        name:""
+      }
+    }
+  })
 
   useEffect(()=>{
     fetchGames();
     setActiveGenre(0)
-  }, [platform])
+  }, [platform, startDate, endDate,page])
 
   const fetchGames = async ()=>{
-    console.log(last)
-    console.log(today)
-    console.log(platform)
-    const data = await fetch(`https://api.rawg.io/api/games?key=4eea4fb32c3040f0b8f1c37422f78f4f${platform==="0"?"":`&platforms=${platform}`}&dates=${last},${today}`)
+    const data = await fetch(`https://api.rawg.io/api/games?key=4eea4fb32c3040f0b8f1c37422f78f4f${platform==="0"?"":`&platforms=${platform}`}&dates=${startDate},${endDate}&page=${page}`)
     const items = await data.json()
+    if (items.next){
+      setNext(true)
+    }else{
+      setNext(false)
+    }
+    if (items.prev){
+      setPrev(true)
+    }else{
+      setPrev(false)
+    }
     setGames(items.results)
     setFiltered(items.results)
   }
   return (
     <div className="App">
-      <h1>Game list of last 30 days</h1>
+      <h1>Game searcher</h1>
       <div id="header">
-        <SearchBar setPlatform={setPlatform}/>
-        <Filter games={games} setFiltered={setFiltered} activeGenre={activeGenre} setActiveGenre={setActiveGenre}/>
+        <Search setStartDate={setStartDate} setEndDate={setEndDate}/>
+        <div id="control-container">
+          <Select setPlatform={setPlatform}/>
+          <Filter games={games} setFiltered={setFiltered} activeGenre={activeGenre} setActiveGenre={setActiveGenre}/>
+        </div>
       </div>
-      <motion.div layout className="popular-movies">
+      <h3 onClick={()=>page>1?setPage(page-1):setPage(1)}>{prev?"Previous":""}</h3>
+      <h3 onClick={()=>setPage(page+1)}>{next?"Next":""}</h3>
+      <h2>{games.length!==0?"":"No Results"}</h2>
+      <motion.div layout className="popular-games">
         {filtered.map(game=>{
-          return <Game key={game.id} game={game}/>
+          return <Game key={game.id} game={game} setSelectedGame={setSelectedGame} />
         })}
       </motion.div>
+      <div id="modal-container">
+        <Modal selectedGame={selectedGame} gameInfo={gameInfo} setGameInfo={setGameInfo} />
+      </div>
     </div>
   );
 }
