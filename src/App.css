@@ -76,13 +76,13 @@ select{
   border-radius: 0.5rem;
   color:  rgb(65,98,168);
 }
-
 #search-container{
   display: flex;
   height: 2.5rem;
   align-items: center;
   color: white;
 }
+
 #search-container input{
   margin-right: 1rem;
   margin-left: 1rem;
@@ -107,7 +107,11 @@ select{
   color: white;
   border: 1px solid white;
 }
-
+#message{
+  font-size: 1rem;
+  color: white;
+  margin: 0;
+}
 #control-container{
   display: flex;
   justify-content: space-between;
@@ -187,10 +191,7 @@ li{
   font-weight: bold;
 }
 #modal-inner a{
-  color:white;
-  background-color: rgb(65,98,168);
-  padding:0.2rem 1rem;
-  border-radius: 0.5rem;
+  color: rgb(65,98,168);
   margin-right: 1rem;
   font-size: 1rem;
   text-decoration: none;
