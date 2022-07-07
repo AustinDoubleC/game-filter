@@ -15,10 +15,14 @@ const searchDates=()=>{
   return (
     <div id="search-outer">
     <div id="search-container">
-            <p>From: </p>
-            <input type="date" id="start"/>
-            <p>To: </p>
-            <input type="date" id="end"/>
+            <div class="search-date-container">
+              <p class="search-label">From: </p>
+              <input type="date" id="start"/>
+            </div>
+            <div class="search-date-container">
+              <p class="search-label">To: </p>
+              <input type="date" id="end"/>
+            </div>
             <button onClick={()=>searchDates()}>search</button>
     </div>
     <p id="message"></p>

@@ -37,12 +37,13 @@ function App() {
   const fetchGames = async ()=>{
     const data = await fetch(`https://api.rawg.io/api/games?key=4eea4fb32c3040f0b8f1c37422f78f4f${platform==="0"?"":`&platforms=${platform}`}&dates=${startDate},${endDate}&page=${page}`)
     const items = await data.json()
+    console.log(items)
     if (items.next){
       setNext(true)
     }else{
       setNext(false)
     }
-    if (items.prev){
+    if (items.previous){
       setPrev(true)
     }else{
       setPrev(false)
@@ -52,7 +53,6 @@ function App() {
   }
   return (
     <div className="App">
-      <h1>Game searcher</h1>
       <div id="header">
         <Search setStartDate={setStartDate} setEndDate={setEndDate}/>
         <div id="control-container">
@@ -60,8 +60,10 @@ function App() {
           <Filter games={games} setFiltered={setFiltered} activeGenre={activeGenre} setActiveGenre={setActiveGenre}/>
         </div>
       </div>
-      <h3 onClick={()=>page>1?setPage(page-1):setPage(1)}>{prev?"Previous":""}</h3>
-      <h3 onClick={()=>setPage(page+1)}>{next?"Next":""}</h3>
+      <div id="page-control">
+        <h3 onClick={()=>page>1?setPage(page-1):setPage(1)}>{prev?"Previous":""}</h3>
+        <h3 onClick={()=>setPage(page+1)}>{next?"Next":""}</h3>
+      </div>
       <h2>{games.length!==0?"":"No Results"}</h2>
       <motion.div layout className="popular-games">
         {filtered.map(game=>{

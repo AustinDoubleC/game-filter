@@ -27,6 +27,28 @@ h2{
   flex-direction: column;
   justify-content: flex-end;
 }
+
+.game-image:hover,
+.game-image:active{
+  cursor: pointer;
+  filter: brightness(300%);
+  filter: contrast(300%);
+}
+#page-control{
+  display: flex;
+  justify-content: space-between;
+}
+#page-control h3{
+  display: flex;
+  justify-content: space-between;
+  color: rgb(65,98,168);;
+}
+#page-control h3:hover,
+#page-control h3:active{
+  color: yellow;
+  cursor: pointer;
+}
+
 #rating{
   margin-top:0;
   font-weight: bold;
@@ -78,9 +100,15 @@ select{
 }
 #search-container{
   display: flex;
-  height: 2.5rem;
   align-items: center;
   color: white;
+}
+.search-date-container{
+  display: flex;
+  align-content: center;
+}
+.search-label{
+  margin: 0;
 }
 
 #search-container input{
@@ -110,8 +138,30 @@ select{
 #message{
   font-size: 1rem;
   color: white;
-  margin: 0;
+  margin: 0 0 0.5rem 0;
 }
+
+@media screen and (max-width:600px) {
+  .search-date-container{
+    display: flex;
+
+  }
+  #search-container{
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    align-items: flex-start;
+  }
+  #search-container input{
+    margin-bottom: 0.5rem;
+    width: 200px;
+    text-align: center;
+  }
+  #search-container button{
+    margin: 0 auto;
+    width: 80%;
+  }
+}
+
 #control-container{
   display: flex;
   justify-content: space-between;
@@ -127,7 +177,6 @@ select{
   body {
     margin: 0 10%
   }
-  #header{flex-direction: column;} 
   .filter-container button{
     margin-top: 1rem;
     justify-content: center;
@@ -136,7 +185,9 @@ select{
   #searchContainer{
     margin: 0px auto
   }
-  
+  #control-container{
+    flex-direction: column;
+  }
 }
 
 #modal-container{
@@ -157,14 +208,26 @@ select{
   overflow: auto;
   padding:1rem
 }
+@media screen and (max-width:550px) {
+  #modal-inner{
+    width: 95%;
+    margin-top: 50px;
+    padding: 0.5rem;
+  }
+}
+@media screen and (max-height:600px) {
+  #modal-inner{
+    height: 300px;
+    margin-top: 50px;
+  }
+}
 
-
-.platform, .publisher{
+.publisher{
   display: flex;
   list-style: none;
   flex-wrap: wrap;
 }
-li{
+.publisher li{
   background-color: rgb(65,98,168);
   border-radius: 0.5rem;
   padding: 0.2rem 0.5rem;

@@ -30,7 +30,9 @@ const Modal =({selectedGame, gameInfo, setGameInfo})=>{
                         ))}
             </ul>
             <p id="modal-rating">{gameInfo.rating?"Rating: " + gameInfo.rating:""}</p>
-            <img src={gameInfo.background_image_additional} alt={selectedGame.name} />
+            {gameInfo.background_image_additional?<img src={gameInfo.background_image_additional} alt={selectedGame.name} />:""
+            }
+
             <div id="game-description"></div>
             <a href={gameInfo.website} target="_blank">{gameInfo.website?"Official website":""}</a>
             <a href={gameInfo.metacritic_url} target="_blank">{gameInfo.metacritic_url?"Review":""}</a>
