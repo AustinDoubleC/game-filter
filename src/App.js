@@ -37,7 +37,6 @@ function App() {
   const fetchGames = async ()=>{
     const data = await fetch(`https://api.rawg.io/api/games?key=4eea4fb32c3040f0b8f1c37422f78f4f${platform==="0"?"":`&platforms=${platform}`}&dates=${startDate},${endDate}&page=${page}`)
     const items = await data.json()
-    console.log(items)
     if (items.next){
       setNext(true)
     }else{
