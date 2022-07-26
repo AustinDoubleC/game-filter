@@ -8,8 +8,26 @@ import { motion } from "framer-motion"
 import Modal from './Modal';
 
 function App() {
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
+  const now = new Date()
+  const nowDayNum = now.getDate()
+  const nowMonthNum = now.getMonth()+1
+  const nowYear = now.getFullYear()
+  const nowDay = nowDayNum<10?`0${nowDayNum.toString()}`:nowDayNum.toString()
+  const nowMonth = nowMonthNum<10?`0${nowMonthNum.toString()}`:nowMonthNum.toString()
+  const today = `${nowYear}-${nowMonth}-${nowDay}`
+
+  let pass = new Date();
+  pass.setDate(pass.getDate() - 6);
+  const passDayNum = pass.getDate()
+  const passMonthNum = pass.getMonth()+1
+  const passYear = pass.getFullYear()
+  const passDay = passDayNum<10?`0${passDayNum.toString()}`:passDayNum.toString()
+  const passMonth = passMonthNum<10?`0${passMonthNum.toString()}`:passMonthNum.toString()
+  const sevenDay = `${passYear}-${passMonth}-${passDay}`
+  
+
+  const [startDate, setStartDate] = useState(sevenDay)
+  const [endDate, setEndDate] = useState(today)
   const [page, setPage] =useState(1)
   const [prev, setPrev] = useState(false)
   const [next, setNext] = useState(false)
@@ -63,7 +81,7 @@ function App() {
         <h3 onClick={()=>page>1?setPage(page-1):setPage(1)}>{prev?"Previous":""}</h3>
         <h3 onClick={()=>setPage(page+1)}>{next?"Next":""}</h3>
       </div>
-      <h2>{games.length!==0?"":"No Results"}</h2>
+      <h2>{games.length!==0?`Showing games from ${startDate} to ${endDate}`:"No Results"}</h2>
       <motion.div layout className="popular-games">
         {filtered.map(game=>{
           return <Game key={game.id} game={game} setSelectedGame={setSelectedGame} />
